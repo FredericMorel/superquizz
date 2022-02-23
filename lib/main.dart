@@ -29,10 +29,11 @@ class _QuizAppState extends State<QuizApp> {
                     padding: EdgeInsets.symmetric(horizontal: 10.0),
                     child: Center(
                       child: Text(
-                        "Question super difficile !?",
+                        "Question super difficile !? Question super difficile !? Question super difficile !? Question super difficile !?",
                         style: TextStyle(
                             color: Color.fromARGB(255, 88, 242, 247),
                             fontSize: 25.0),
+                        textAlign:TextAlign.center,
                       ),
                     ),
                   ),
@@ -75,6 +76,12 @@ class _QuizAppState extends State<QuizApp> {
                     ),
                   ),
                 ),
+                Row(children: [
+                  Icon(Icons.check,color: Colors.green),
+                  Icon(Icons.close, color: Colors.red),
+                  Icon(Icons.check, color: Colors.green),
+                  Icon(Icons.close, color: Colors.red),
+                  ],)
               ],
             ),
           ),
