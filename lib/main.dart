@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const QuizApp());
+  runApp(QuizApp());
 }
 
 class QuizApp extends StatefulWidget {
-  const QuizApp({Key? key}) : super(key: key);
+  QuizApp({Key? key}) : super(key: key);
 
   @override
   _QuizAppState createState() => _QuizAppState();
 }
 
 class _QuizAppState extends State<QuizApp> {
-  List<Icon> suiviScore = [
-    Icon(Icons.check, color: Colors.green),
-    Icon(Icons.close, color: Colors.red),
-    Icon(Icons.check, color: Colors.green),
-    Icon(Icons.close, color: Colors.red),
+  /* Mon Tableau Suivi score */
+  List<Icon> suiviScore = [];
+  /* Ma liste de Question */
+  List<String> questions = [
+    "Le Piton des Neiges est un volcan de la Réunion ?",
+    "Flutter permet de faire des applications web également ?",
+    "Flutter ne permet pas de faire des applications Windows, Mac OS, Linux également ?",
+    " PHP est le langage le plus utilisé pour programmer avec Flutter ?",
+    ""
   ];
+  List<bool> reponses = [true, true, false, false];
+  int questionNumber = 0;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,40 +34,49 @@ class _QuizAppState extends State<QuizApp> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-/* ------- Text du Quizz --------------- */
+/* ------- Widget Questions --------------- */
 
-                const Expanded(
+                Expanded(
                   flex: 5,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.0),
                     child: Center(
                       child: Text(
-                        "Question super difficile !? Question super difficile !? Question super difficile !? Question super difficile !?",
+                        questions[questionNumber],
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Color.fromARGB(255, 88, 242, 247),
                             fontSize: 25.0),
-                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
                 ),
+
                 /* ------- Buttons Vrai --------------- */
 
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: EdgeInsets.all(15.0),
                     child: TextButton(
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all<Color>(Colors.green),
                       ),
                       onPressed: () {
+                        bool bonne_reponse = reponses[questionNumber];
                         setState(() {
-                          suiviScore
-                              .add(Icon(Icons.check, color: Colors.green));
+                          if (bonne_reponse == true) {
+                            suiviScore
+                                .add(Icon(Icons.check, color: Colors.green));
+                          } else {
+                            suiviScore
+                                .add(Icon(Icons.close, color: Colors.red));
+                          }
+
+                          questionNumber++; // questionNumber = questionNumber+1;
                         });
                       },
-                      child: const Text(
+                      child: Text(
                         "Vrai",
                         style: TextStyle(
                             color: Color.fromARGB(255, 233, 251, 239),
@@ -72,21 +88,28 @@ class _QuizAppState extends State<QuizApp> {
                 /* ------- Button Faux --------------- */
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: EdgeInsets.all(15.0),
                     child: TextButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color.fromARGB(255, 219, 27, 27)),
+                            Color.fromARGB(255, 219, 27, 27)),
                       ),
                       onPressed: () {
+                        bool bonne_reponse = reponses[questionNumber];
                         setState(() {
-                          suiviScore.add(Icon(
-                            Icons.check,
-                            color: Colors.red,
-                          ));
+                          if (bonne_reponse == false) {
+                            suiviScore.add(Icon(
+                              Icons.check,
+                              color: Colors.green,
+                            ));
+                          } else {
+                            suiviScore
+                                .add(Icon(Icons.close, color: Colors.red));
+                          }
+                          questionNumber++;
                         });
                       },
-                      child: const Text(
+                      child: Text(
                         "Faux",
                         style: TextStyle(
                             color: Color.fromARGB(255, 233, 251, 239),
@@ -105,7 +128,7 @@ class _QuizAppState extends State<QuizApp> {
           /* ------- APP BAR --------------- */
           appBar: AppBar(
             backgroundColor: Color.fromARGB(220, 8, 64, 175),
-            title: const Text(
+            title: Text(
               'Le Super Quizz !',
               style: TextStyle(
                   color: Color.fromARGB(255, 88, 247, 1), fontSize: 45.0),
