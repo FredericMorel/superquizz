@@ -20,7 +20,7 @@ class _QuizAppState extends State<QuizApp> {
     "Flutter permet de faire des applications web également ?",
     "Flutter ne permet pas de faire des applications Windows, Mac OS, Linux également ?",
     " PHP est le langage le plus utilisé pour programmer avec Flutter ?",
-    ""
+    "Fin du quizz"
   ];
   List<bool> reponses = [true, true, false, false];
   int questionNumber = 0;
@@ -65,7 +65,8 @@ class _QuizAppState extends State<QuizApp> {
                       onPressed: () {
                         bool bonne_reponse = reponses[questionNumber];
                         setState(() {
-                          if (bonne_reponse == true) {
+                          if (bonne_reponse == true &&
+                              questionNumber <= questions.length) {
                             suiviScore
                                 .add(Icon(Icons.check, color: Colors.green));
                           } else {
@@ -97,7 +98,8 @@ class _QuizAppState extends State<QuizApp> {
                       onPressed: () {
                         bool bonne_reponse = reponses[questionNumber];
                         setState(() {
-                          if (bonne_reponse == false) {
+                          if (bonne_reponse == false &&
+                              questionNumber <= questions.length) {
                             suiviScore.add(Icon(
                               Icons.check,
                               color: Colors.green,
