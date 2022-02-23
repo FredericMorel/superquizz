@@ -12,6 +12,12 @@ class QuizApp extends StatefulWidget {
 }
 
 class _QuizAppState extends State<QuizApp> {
+  List<Icon> suiviScore = [
+    Icon(Icons.check, color: Colors.green),
+    Icon(Icons.close, color: Colors.red),
+    Icon(Icons.check, color: Colors.green),
+    Icon(Icons.close, color: Colors.red),
+  ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,12 +39,12 @@ class _QuizAppState extends State<QuizApp> {
                         style: TextStyle(
                             color: Color.fromARGB(255, 88, 242, 247),
                             fontSize: 25.0),
-                        textAlign:TextAlign.center,
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
                 ),
-                /* ------- Buttons Vrai / Faux --------------- */
+                /* ------- Buttons Vrai --------------- */
 
                 Expanded(
                   child: Padding(
@@ -48,7 +54,12 @@ class _QuizAppState extends State<QuizApp> {
                         backgroundColor:
                             MaterialStateProperty.all<Color>(Colors.green),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          suiviScore
+                              .add(Icon(Icons.check, color: Colors.green));
+                        });
+                      },
                       child: const Text(
                         "Vrai",
                         style: TextStyle(
@@ -58,6 +69,7 @@ class _QuizAppState extends State<QuizApp> {
                     ),
                   ),
                 ),
+                /* ------- Button Faux --------------- */
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
@@ -66,7 +78,14 @@ class _QuizAppState extends State<QuizApp> {
                         backgroundColor: MaterialStateProperty.all<Color>(
                             const Color.fromARGB(255, 219, 27, 27)),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          suiviScore.add(Icon(
+                            Icons.check,
+                            color: Colors.red,
+                          ));
+                        });
+                      },
                       child: const Text(
                         "Faux",
                         style: TextStyle(
@@ -76,12 +95,9 @@ class _QuizAppState extends State<QuizApp> {
                     ),
                   ),
                 ),
-                Row(children: [
-                  Icon(Icons.check,color: Colors.green),
-                  Icon(Icons.close, color: Colors.red),
-                  Icon(Icons.check, color: Colors.green),
-                  Icon(Icons.close, color: Colors.red),
-                  ],)
+                Row(
+                  children: suiviScore,
+                )
               ],
             ),
           ),
